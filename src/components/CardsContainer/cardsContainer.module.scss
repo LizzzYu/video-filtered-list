@@ -1,0 +1,12 @@
+.wrapper {
+  padding-top: 31px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  column-gap: 20px;
+  row-gap: 20px;
+}
+
+.text {
+  padding-top: 60px;
+  margin: 0 auto;
+}

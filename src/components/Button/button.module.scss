@@ -1,0 +1,15 @@
+@import '../../styles/scss/_variables';
+
+.wrapper {
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: $dark-gray;
+  font-size: 12px;
+  line-height:16px;
+  cursor: pointer;
+}
+
+.checked {
+  background-color: $blue;
+  color: white;
+}

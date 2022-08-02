@@ -1,0 +1,105 @@
+@import '../../styles/scss/_variables';
+
+.wrapper {
+  position: relative;
+  width: 240px;
+  height: 228px;
+  border-radius: 4px;
+
+  background: #ffffff;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+
+  cursor: pointer;
+
+  &:hover {
+    > div > img {
+      transform: scale(1.1);
+      transition: all ease-in-out 0.1s;
+    }
+  }
+}
+
+.image {
+  overflow: hidden;
+  width: 240px;
+  height: 135px;
+  object-fit: cover;
+  border-radius: 4px 4px 0 0;
+}
+
+.durationTag {
+  position: absolute;
+  top: 107px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 2px;
+  padding: 2px;
+
+  color: $white;
+  font-size: 12px;
+  line-height: 16px;
+  color: #ffffff;
+  letter-spacing: 0;
+  line-height: 16px;
+}
+
+.contents {
+  background: #ffffff;
+  padding: 4px 8px;
+
+  &__title {
+    height: 40px;
+    font-size: 14px;
+    line-height: 20px;
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+
+  &__viewsSec {
+    padding-top: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    &__views {
+      font-size: 14px;
+      line-height: 20px;
+      color: $dark-gray;
+      padding-left: 5px;
+    }
+  }
+
+  &__tagGroup {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    column-gap: 8px;
+
+    &__tag {
+      color: $white;
+      padding: 2px 8px;
+      background-color: $blue;
+      font-family: PingFangTC-Medium;
+      font-size: 12px;
+      line-height: 17px;
+      color: #ffffff;
+      letter-spacing: -0.03px;
+      border-radius: 2px;
+    }
+  }
+}
+
+.language {
+  background-color: $blue;
+}
+
+.level {
+  background-color: $green;
+}
