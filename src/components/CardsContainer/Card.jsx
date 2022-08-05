@@ -35,7 +35,7 @@ export default function Card(props) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.image}>
-        <img className={styles.image} src={props.thumbnail} />
+        <Image objectFit="cover" width={240} height={135} src={props.thumbnail} />
       </div>
       <div className={styles.durationTag}>{formatSecond(props.duration)}</div>
       <div className={styles.contents}>

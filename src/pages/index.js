@@ -1,15 +1,30 @@
 import Head from 'next/head';
-import Image from 'next/image';
+// import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import Filter from '../components/Filter';
 
-export default function Home() {
+export default function Home({ videos }) {
   return (
-    <div className={styles.wrapper}>
-      <Filter />
-    </div>
+    <Head>
+      <div className={styles.wrapper}>
+        <Filter videos={videos} />
+      </div>
+    </Head>
   );
 }
+
+export const getStaticProps = async () => {
+  const res = await fetch(
+    'https://us-central1-lithe-window-713.cloudfunctions.net/frontendQuiz'
+  );
+  const videos = await res.json();
+
+  return {
+    props: {
+      videos,
+    },
+  };
+};
 
 // export default function Home() {
 //   return (
