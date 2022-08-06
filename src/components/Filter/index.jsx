@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-// import moment from 'moment';
 import styles from './filter.module.scss';
 import CardsContainer from '../CardsContainer';
 import FilterHeader from './FilterHeader/FilterHeader';
@@ -20,6 +19,7 @@ export default function Filter(props) {
     setRawData(props.videos.data);
   }, [props.videos]);
 
+
   const onOrderClick = (id) => {
     setSelectedOrder(id);
   };
@@ -28,66 +28,68 @@ export default function Filter(props) {
     setSelectedLength(id);
   };
 
-  useEffect(() => {
-    if (videos.length !== 0) {
-      switch (selectedOrder) {
-        case 1:
-          setVideos([
-            ...videos.sort((a, b) =>
-              b.publishedAt.localeCompare(a.publishedAt)
-            ),
-          ]);
+  const onPublishOrder = (data) => {
+    return data.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+  };
 
-          break;
-        case 2:
-          setVideos([...videos.sort((a, b) => b.views - a.views)]);
+  const onViewsCountOrder = (data) => {
+    return data.sort((a, b) => b.views - a.views);
+  };
 
-          break;
-        case 3:
-          setVideos([
-            ...videos.sort((a, b) => b.collectCount - a.collectCount),
-          ]);
+  const onCollectCountOrder = (data) => {
+    return data.sort((a, b) => b.collectCount - a.collectCount);
+  };
 
-          break;
-        default:
-          setVideos([
-            ...videos.sort((a, b) =>
-              b.publishedAt.localeCompare(a.publishedAt)
-            ),
-          ]);
-      }
+  const getOrder = (order, data) => {
+    switch (order) {
+      case 1:
+        setVideos(onPublishOrder(data));
+
+        break;
+      case 2:
+        setVideos(onViewsCountOrder(data));
+
+        break;
+      case 3:
+        setVideos(onCollectCountOrder(data));
+
+        break;
+      default:
+        setVideos(onPublishOrder(data));
     }
-  }, [selectedOrder]);
+  };
 
   useEffect(() => {
-    const originVideos = [...rawData];
+    let originVideos = [...rawData];
     if (originVideos.length !== 0) {
       switch (selectedLength) {
         case 1:
-          setVideos(originVideos);
+          getOrder(selectedOrder, originVideos);
 
           break;
         case 2:
-          setVideos([...originVideos.filter((video) => video.duration <= 300)]);
+          originVideos = originVideos.filter((video) => video.duration <= 300);
+          getOrder(selectedOrder, originVideos);
 
           break;
         case 3:
-          setVideos([
-            ...originVideos.filter(
+          originVideos = originVideos.filter(
               (video) => video.duration <= 600 && video.duration >= 300
-            ),
-          ]);
+            );
+          getOrder(selectedOrder, originVideos);
 
           break;
         case 4:
-          setVideos([...originVideos.filter((video) => video.duration > 600)]);
+          originVideos = originVideos.filter((video) => video.duration > 600);
+          getOrder(selectedOrder, originVideos);
 
           break;
         default:
-          setVideos(rawData);
+          getOrder(selectedOrder, originVideos);
+          break;
       }
     }
-  }, [selectedLength]);
+  }, [selectedLength, selectedOrder]);
 
   return (
     <div className={styles.wrapper}>
