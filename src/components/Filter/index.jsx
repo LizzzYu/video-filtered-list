@@ -3,6 +3,11 @@ import styles from './filter.module.scss';
 import CardsContainer from '../CardsContainer';
 import FilterHeader from './FilterHeader/FilterHeader';
 import {
+  setPublishOrder,
+  setViewsCountOrder,
+  setCollectCountOrder,
+} from '../../utils/orderSetter';
+import {
   orderFilterConfig,
   lengthFilterConfig,
 } from '../../statics/filterMenu';
@@ -19,7 +24,6 @@ export default function Filter(props) {
     setRawData(props.videos.data);
   }, [props.videos]);
 
-
   const onOrderClick = (id) => {
     setSelectedOrder(id);
   };
@@ -28,34 +32,22 @@ export default function Filter(props) {
     setSelectedLength(id);
   };
 
-  const onPublishOrder = (data) => {
-    return data.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
-  };
-
-  const onViewsCountOrder = (data) => {
-    return data.sort((a, b) => b.views - a.views);
-  };
-
-  const onCollectCountOrder = (data) => {
-    return data.sort((a, b) => b.collectCount - a.collectCount);
-  };
-
   const getOrder = (order, data) => {
     switch (order) {
       case 1:
-        setVideos(onPublishOrder(data));
+        setVideos(setPublishOrder(data));
 
         break;
       case 2:
-        setVideos(onViewsCountOrder(data));
+        setVideos(setViewsCountOrder(data));
 
         break;
       case 3:
-        setVideos(onCollectCountOrder(data));
+        setVideos(setCollectCountOrder(data));
 
         break;
       default:
-        setVideos(onPublishOrder(data));
+        setVideos(setPublishOrder(data));
     }
   };
 
@@ -74,8 +66,8 @@ export default function Filter(props) {
           break;
         case 3:
           originVideos = originVideos.filter(
-              (video) => video.duration <= 600 && video.duration >= 300
-            );
+            (video) => video.duration <= 600 && video.duration >= 300
+          );
           getOrder(selectedOrder, originVideos);
 
           break;

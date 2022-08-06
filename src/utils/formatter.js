@@ -1,4 +1,4 @@
-export const formatSecond = (secs) => {
+export const secondFormatter = (secs) => {
   let hr = Math.floor(secs / 3600);
   let min = Math.floor((secs - hr * 3600) / 60);
   let sec = parseInt(secs - hr * 3600 - min * 60);
@@ -12,4 +12,6 @@ export const formatSecond = (secs) => {
   if (hr) hr += ':';
   return (hr || '') + min + ':' + sec;
 };
+
+export const numberFormatter = Intl.NumberFormat('en', { notation: 'compact' });
 
